@@ -40,7 +40,6 @@ routes.get('/employees/:eid', async (req, res) => {
             res.status(404).send({error_msg: "employee not found"})
         }
     } catch (err) {
-        console.log(err.code + "assssssssssssssssssssssssssssssssssssss")
         if (err.code === 11000) {
             res.status(601).send({error: "Email is already in use. If this is the email of the employing that is being updated, please omit the email field!"})
         }
@@ -73,15 +72,14 @@ routes.put('/employees/:eid', async (req, res) => {
 
 });
 
-routes.delete('/employees/:eid', async (req, res) => {
+routes.delete('/employees', async (req, res) => {
     try {
-        const deletedEmp = await empModel.findAndDelete(req.query.eid)
+        const deletedEmp = await empModel.findByIdAndDelete(req.query.eid)
         if (deletedEmp) {
-            res.status(204).send({msg:"Deleted", employee:deletedEmp})
+            res.status(204).send()
         }
         else {
             res.status(600).send({msg:"Couldn't find the employee with inputted id"})
-
         }
     } catch (err) {
         res.status(600).send(err)
