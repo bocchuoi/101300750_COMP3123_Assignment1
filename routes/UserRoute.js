@@ -2,20 +2,21 @@ const userModel = require("../models/UserModel.js")
 const express = require("express")
 
 const routes = express.Router()
-// routes.use((req, res, next) => {
-//     console.log('Time: ', Date.now())
-//     next()
-// })
-
 
 routes.post('/signup', async (req, res) => {
     const newUser = new userModel(req.body)
     try {
         await newUser.save()
-        res.status(201).send(newUser)
+        let result = {msg: "The account was created with following information", account: newUser}
+        res.status(201).send(result)
     } catch (error) {
-        console.log(error)
-        res.status(601).send(error)
+        if (error.code === 11000) {
+            let errorMsg = (error.keyPattern.username) ? "User name is already in use" : "Email is already in use" 
+            res.status(601).send({error: errorMsg})
+        }
+        else {
+            res.status(601).send(error)
+        }
     }
 });
 
@@ -30,7 +31,7 @@ routes.post('/login', async (req, res) => {
         }
     } catch (error) {
         console.log(error)
-        res.status(404).send(error)
+        res.status(600).send(error)
     }
 
 });
