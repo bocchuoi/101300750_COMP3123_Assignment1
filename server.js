@@ -14,14 +14,15 @@ app.use("/api/emp", empRoutes)
 
 
 mongoose.connect(
-    "mongodb://127.0.0.1:27017/employees", 
+    // "mongodb://127.0.0.1:27017/employees",
+    "mongodb+srv://user:user@cluster0.yojbzm5.mongodb.net/employees?retryWrites=true&w=majority", 
     { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
 
 app.route("/")
     .get((req, res) => {
-        res.send("<h1>MogoDB + Mongoose Example</h1>")
+        res.send("<h1>Assingment 2</h1>")
     })
 
 app.listen(8081, () => {
