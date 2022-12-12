@@ -3,15 +3,16 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/UserRoute')
 const empRoutes = require('./routes/EmployeeRoute')
-
+const cors = require('cors');
 
 const app = express()
+app.use(cors());
+
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use("/api/user", userRoutes)
 app.use("/api/emp", empRoutes)
-
 
 mongoose.connect(
     // "mongodb://127.0.0.1:27017/employees",

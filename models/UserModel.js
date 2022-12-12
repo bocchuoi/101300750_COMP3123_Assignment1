@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
         maxLength: 100,
-        unique: [true, "This username is already used"]
+        unique: [true, "This username is already in use"]
     },
     email: {
         type: String,

@@ -16,7 +16,7 @@ routes.post('/employees', async (req, res) => {
     const newEmp = empModel(req.body)
     try {
         await newEmp.save()
-        res.status(201).send({msg: "The employee was added with following information", account: newEmp})
+        res.status(201).send({msg: "The employee was added"})
     } catch (error) {
         if (error.code === 11000) {
             res.status(601).send({error: "Email is already in use"})

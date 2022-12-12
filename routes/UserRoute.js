@@ -7,7 +7,7 @@ routes.post('/signup', async (req, res) => {
     const newUser = new userModel(req.body)
     try {
         await newUser.save()
-        let result = {msg: "The account was created with following information", account: newUser}
+        let result = {msg: "Account Registered"}
         res.status(201).send(result)
     } catch (error) {
         if (error.code === 11000) {
@@ -27,7 +27,7 @@ routes.post('/login', async (req, res) => {
             res.status(200).send({status:"logged in"})
         }
         else {
-            res.status(404).send({status:"failed", msg:"invalid username or password"})
+            res.status(410).send({status:"failed", msg:"invalid username or password"})
         }
     } catch (error) {
         console.log(error)
